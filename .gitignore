@@ -33,3 +33,6 @@ logs/
 *.tmp
 *.temp
 .temp/
+
+# Local Netlify folder
+.netlify

@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.overflow = 'hidden';
         } else {
             // Fallback redirect if overlay not found
-            window.location.href = '../Noon-Opticals-Website/index.html';
+            window.location.href = '../index.html';
         }
     }
 })();
@@ -2178,7 +2178,7 @@ document.getElementById('logoutBtn')?.addEventListener('click', async (e) => {
         sessionStorage.removeItem('adminUser');
         // Redirect to main website after short delay
         setTimeout(() => {
-            window.location.href = '../Noon-Opticals-Website/index.html';
+            window.location.href = '../index.html';
         }, 1500);
     }
 });

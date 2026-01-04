@@ -7,9 +7,8 @@ plugins = []
 [functions."*"]
 
 [build]
-publish = "F:\\Client Project\\Noon-Opticals-Website"
+publish = "F:\\Client Project"
 publishOrigin = "config"
-base = "F:\\Client Project\\Noon-Opticals-Website"
 
 [build.environment]
 
