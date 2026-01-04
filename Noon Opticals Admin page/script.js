@@ -2178,7 +2178,7 @@ document.getElementById('logoutBtn')?.addEventListener('click', async (e) => {
         sessionStorage.removeItem('adminUser');
         // Redirect to main website after short delay
         setTimeout(() => {
-            window.location.href = '/index.html';
+            window.location.href = '\index.html';
         }, 1500);
     }
 });
