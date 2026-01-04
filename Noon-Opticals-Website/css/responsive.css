@@ -1,0 +1,829 @@
+/* =============================================
+   Responsive Design & Media Queries
+   ============================================= */
+
+/* ========== Mobile First Approach ========== */
+
+/* Extra Small Devices (Phones, 320px and up) */
+@media (min-width: 320px) {
+    body {
+        font-size: 14px;
+    }
+}
+
+/* Small Devices (Phones, 480px and up) */
+@media (min-width: 480px) and (max-width: 767px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .section-padding {
+        padding: 50px 0;
+    }
+
+    /* Hero adjustments */
+    .hero-title .title-line {
+        font-size: 1.75rem !important;
+    }
+
+    .hero-title .title-highlight {
+        font-size: 2.25rem !important;
+    }
+
+    .hero-description {
+        font-size: 0.95rem !important;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        padding: 14px 28px !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+/* Medium Devices (Tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .container {
+        padding: 0 30px;
+    }
+
+    .section-padding {
+        padding: 60px 0;
+    }
+
+    .nav-container {
+        padding: 15px 30px;
+    }
+
+    /* Hero Section Tablet - extra padding for fixed navbar + search bar */
+    .hero {
+        padding-top: 160px !important;
+        /* navbar (72px) + search bar (~50px) + margin */
+    }
+
+    .hero-content {
+        gap: 50px !important;
+    }
+
+    .hero-title .title-line {
+        font-size: 2.2rem !important;
+    }
+
+    .hero-title .title-highlight {
+        font-size: 2.8rem !important;
+    }
+
+    /* Product Grid Tablet */
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+    }
+
+    /* Features Grid Tablet */
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 18px !important;
+    }
+
+    /* Footer Tablet - 2 columns: brand and contact side by side */
+    .footer-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 30px !important;
+        padding: 0 20px !important;
+    }
+
+    .footer-col-brand {
+        padding-right: 0 !important;
+        text-align: left !important;
+        border-bottom: none !important;
+    }
+
+    .footer-brand {
+        justify-content: flex-start !important;
+    }
+
+    .footer-bottom-content {
+        grid-template-columns: 1fr auto 1fr !important;
+    }
+
+    /* Cart Sidebar - Keep as sidebar like 1024px */
+    .cart-sidebar {
+        width: 320px !important;
+        background: linear-gradient(135deg, rgba(20, 25, 35, 0.95), rgba(15, 20, 30, 0.98)) !important;
+        backdrop-filter: blur(30px) !important;
+        -webkit-backdrop-filter: blur(30px) !important;
+    }
+
+    .cart-header h2,
+    .cart-header h3 {
+        font-size: 1.3rem !important;
+    }
+
+    .c-item-image {
+        width: 60px !important;
+        height: 60px !important;
+    }
+
+    .c-item-name {
+        font-size: 0.9rem !important;
+    }
+
+    .c-item-price {
+        font-size: 0.85rem !important;
+    }
+}
+
+/* Large Devices (Desktops, 1024px and up) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+    .container {
+        max-width: 960px;
+    }
+
+    .nav-container {
+        padding: 15px 40px;
+    }
+
+    .hero-container {
+        padding: 0 40px;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+/* Extra Large Devices (Large Desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1200px;
+    }
+
+    .nav-container,
+    .hero-container {
+        max-width: 1400px;
+    }
+}
+
+/* ========== Mobile Specific Styles ========== */
+@media (max-width: 767px) {
+
+    /* Global Mobile Styles */
+    body {
+        font-size: 14px;
+    }
+
+    /* Hide desktop elements */
+    .nav-menu {
+        display: none !important;
+    }
+
+    .menu-toggle {
+        display: block !important;
+    }
+
+    /* Container adjustments */
+    .container {
+        padding: 0 20px;
+    }
+
+    .section-padding {
+        padding: 50px 0;
+    }
+
+    /* Hero Section Mobile - extra padding for fixed navbar + search bar */
+    .hero {
+        padding-top: 160px !important;
+        /* navbar (72px) + search bar (~50px) + margin */
+        padding-bottom: 50px !important;
+        min-height: auto !important;
+    }
+
+    .hero-container {
+        padding: 0 20px !important;
+    }
+
+    .hero-content {
+        flex-direction: column !important;
+        gap: 40px !important;
+        text-align: center !important;
+    }
+
+    .hero-text {
+        max-width: 100% !important;
+    }
+
+    .hero-badge {
+        justify-content: center !important;
+        font-size: 0.75rem !important;
+        padding: 8px 16px !important;
+    }
+
+    .hero-title .title-line {
+        font-size: 2rem !important;
+    }
+
+    .hero-title .title-highlight {
+        font-size: 2.5rem !important;
+    }
+
+    .hero-description {
+        font-size: 1rem !important;
+    }
+
+    .hero-cta {
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100%;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 16px 24px !important;
+    }
+
+    .hero-stats {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 20px !important;
+    }
+
+    .stat-divider {
+        display: none !important;
+    }
+
+    .stat-item {
+        min-width: 45% !important;
+    }
+
+    .stat-number {
+        font-size: 1.5rem !important;
+    }
+
+    .stat-heading {
+        font-size: 0.85rem !important;
+    }
+
+    .stat-subtitle {
+        font-size: 0.7rem !important;
+    }
+
+    .hero-image {
+        width: 100% !important;
+    }
+
+    .image-wrapper {
+        max-width: 350px !important;
+        margin: 0 auto !important;
+    }
+
+    .floating-card {
+        display: none !important;
+    }
+
+    .scroll-indicator {
+        display: none !important;
+    }
+
+    /* Promo Banner Mobile */
+    .promo-banner {
+        padding: 40px 0 !important;
+    }
+
+    .promo-content {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 30px !important;
+    }
+
+    .promo-title {
+        font-size: 1.6rem !important;
+    }
+
+    .promo-highlight {
+        font-size: 1.95rem !important;
+    }
+
+    .promo-text {
+        flex: 1 !important;
+        min-width: 100% !important;
+    }
+
+    .promo-subtitle {
+        font-size: 0.95rem !important;
+        padding: 0 10px;
+    }
+
+    .promo-cta {
+        width: 100% !important;
+        padding: 16px 30px !important;
+        font-size: 0.95rem !important;
+    }
+
+    /* Features Mobile */
+    .features-section {
+        padding: 0 20px;
+    }
+
+    .features-title {
+        font-size: 1.875rem !important;
+    }
+
+    .features-subtitle {
+        font-size: 0.9375rem !important;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+
+    .feature-card-inner {
+        padding: 32px 24px !important;
+    }
+
+    .feature-icon-new {
+        width: 52px !important;
+        height: 52px !important;
+    }
+
+    .feature-icon-new i {
+        font-size: 1.3rem !important;
+    }
+
+    /* Shop Section Mobile */
+    .shop-header {
+        margin-bottom: 40px !important;
+    }
+
+    .shop-title {
+        font-size: 2rem !important;
+    }
+
+    .shop-subtitle {
+        font-size: 1rem !important;
+    }
+
+    .shop-filters {
+        gap: 8px !important;
+        flex-direction: column !important;
+    }
+
+    .filter-btn {
+        padding: 8px 16px !important;
+        font-size: 0.85rem !important;
+        width: 100%;
+    }
+
+    /* Product Grid Mobile */
+    .product-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+
+    .card-image-container {
+        height: 240px !important;
+    }
+
+    .card-content {
+        padding: 20px !important;
+    }
+
+    .card-title {
+        font-size: 1.1rem !important;
+    }
+
+    .current-price {
+        font-size: 1.3rem !important;
+    }
+
+    .add-to-cart-btn {
+        padding: 12px 16px !important;
+        font-size: 0.85rem !important;
+    }
+
+    /* Branches Mobile */
+    .branches-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+
+    /* Contact Section Mobile */
+    .contact-content {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+    }
+
+    .contact-title {
+        font-size: 1.8rem !important;
+    }
+
+    .contact-subtitle {
+        font-size: 0.95rem !important;
+    }
+
+    .contact-card {
+        min-height: auto !important;
+        padding: 24px !important;
+    }
+
+    .form-field input,
+    .form-field textarea {
+        font-size: 0.85rem !important;
+        padding: 10px 14px !important;
+    }
+
+    .submit-btn {
+        padding: 11px 24px !important;
+        font-size: 0.8rem !important;
+    }
+
+    /* Footer Mobile */
+    .glass-footer {
+        padding: 50px 0 0 !important;
+        margin-top: 60px !important;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+        padding: 0 20px !important;
+    }
+
+    .footer-col-brand {
+        padding-right: 0 !important;
+        padding-bottom: 20px !important;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.1) !important;
+        text-align: center !important;
+    }
+
+    .footer-brand {
+        justify-content: center !important;
+    }
+
+    .footer-desc {
+        max-width: 600px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        margin-bottom: 25px !important;
+    }
+
+    .footer-socials {
+        justify-content: center !important;
+    }
+
+    .footer-col-contact {
+        padding-left: 0 !important;
+    }
+
+    .footer-title {
+        font-size: 1.05rem !important;
+    }
+
+    .footer-bottom {
+        padding: 20px !important;
+    }
+
+    .footer-bottom-content {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+        text-align: center !important;
+    }
+
+    .footer-left,
+    .footer-center,
+    .footer-right {
+        justify-content: center !important;
+    }
+
+    .footer-legal {
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+
+    .footer-legal .separator {
+        display: none !important;
+    }
+
+    /* Modals Mobile */
+    .auth-modal-content {
+        padding: 30px 25px !important;
+        max-width: 95% !important;
+    }
+
+    .cart-sidebar {
+        width: 100% !important;
+        background: linear-gradient(135deg, rgba(20, 25, 35, 0.95), rgba(15, 20, 30, 0.98)) !important;
+        backdrop-filter: blur(30px) !important;
+        -webkit-backdrop-filter: blur(30px) !important;
+    }
+
+    /* Floating Elements Mobile */
+    .floating-cart-btn {
+        width: 55px !important;
+        height: 55px !important;
+        bottom: 20px !important;
+        right: 20px !important;
+    }
+
+    .floating-cart-btn i {
+        font-size: 1.25rem !important;
+    }
+
+    .back-to-top {
+        width: 45px !important;
+        height: 45px !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        font-size: 1rem !important;
+    }
+}
+
+/* ========== Extra Small Mobile (320px-479px) ========== */
+@media (max-width: 479px) {
+    .hero-title .title-line {
+        font-size: 1.5rem !important;
+    }
+
+    .hero-title .title-highlight {
+        font-size: 2rem !important;
+    }
+
+    .shop-title {
+        font-size: 1.75rem !important;
+    }
+
+    .contact-title {
+        font-size: 1.75rem !important;
+    }
+
+    .promo-title {
+        font-size: 1.25rem !important;
+        line-height: 1.3 !important;
+    }
+
+    .promo-highlight {
+        font-size: 1.6rem !important;
+    }
+
+    .stat-item {
+        min-width: 100% !important;
+    }
+
+    .footer-logo-img {
+        height: 45px !important;
+    }
+
+    .footer-social-icon {
+        width: 44px !important;
+        height: 44px !important;
+        font-size: 1.05rem !important;
+    }
+
+    .copyright,
+    .dev-credit {
+        font-size: 0.8rem !important;
+    }
+
+    /* Footer contact items - match reference design */
+    .footer-contact-item {
+        padding: 14px 16px !important;
+        gap: 14px !important;
+        align-items: center !important;
+    }
+
+    .footer-contact-item .contact-icon {
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px !important;
+        font-size: 1rem !important;
+        border-radius: 10px !important;
+    }
+
+    .contact-details {
+        gap: 2px !important;
+    }
+
+    .contact-label {
+        font-size: 0.7rem !important;
+        letter-spacing: 1px !important;
+    }
+
+    .contact-details a,
+    .contact-details .contact-text {
+        font-size: 0.9rem !important;
+        line-height: 1.4 !important;
+    }
+
+    /* Footer links - horizontal row */
+    .footer-links {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 8px 16px !important;
+        justify-content: flex-start !important;
+    }
+
+    .footer-links li {
+        margin-bottom: 0 !important;
+    }
+
+    .footer-links a {
+        font-size: 0.85rem !important;
+    }
+
+    .footer-links a i {
+        display: none !important;
+    }
+
+    .footer-title {
+        font-size: 1rem !important;
+        margin-bottom: 12px !important;
+    }
+
+    /* Auth Modal - Extra Small Mobile */
+    .auth-modal {
+        padding: 10px !important;
+    }
+
+    .auth-modal-content {
+        border-radius: 12px !important;
+        max-height: 98vh !important;
+    }
+
+    .auth-modal-inner {
+        padding: 20px 15px !important;
+        max-height: calc(98vh - 2px) !important;
+    }
+
+    .auth-close {
+        top: 10px !important;
+        right: 12px !important;
+        font-size: 1.3rem !important;
+    }
+
+    .auth-tabs {
+        margin-bottom: 15px !important;
+        padding: 4px !important;
+    }
+
+    .auth-tab {
+        padding: 8px 12px !important;
+        font-size: 0.8rem !important;
+    }
+
+    .auth-form-container h2 {
+        font-size: 1.25rem !important;
+    }
+
+    .auth-subtitle {
+        font-size: 0.75rem !important;
+        margin-bottom: 15px !important;
+    }
+
+    .auth-input-group {
+        padding: 10px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .auth-input-group input {
+        font-size: 0.8rem !important;
+    }
+
+    .auth-submit-btn {
+        padding: 10px !important;
+        font-size: 0.8rem !important;
+    }
+
+    .auth-divider {
+        margin: 12px 0 !important;
+    }
+
+    .social-btn {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 0.9rem !important;
+    }
+
+    .terms-checkbox {
+        font-size: 0.7rem !important;
+    }
+}
+
+/* ========== Mobile Desktop Site View (Landscape) ========== */
+@media (max-width: 767px) and (orientation: landscape) {
+    .hero {
+        padding-top: 80px !important;
+        padding-bottom: 30px !important;
+    }
+
+    .hero-content {
+        flex-direction: row !important;
+        text-align: left !important;
+    }
+
+    .hero-title .title-line {
+        font-size: 1.75rem !important;
+    }
+
+    .hero-title .title-highlight {
+        font-size: 2.25rem !important;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* ========== Tablet Landscape (1024px) ========== */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+/* ========== Touch Device Optimizations ========== */
+@media (hover: none) and (pointer: coarse) {
+
+    /* Increase tap targets */
+    .nav-menu a,
+    .filter-btn,
+    .btn-primary,
+    .btn-secondary,
+    .add-to-cart-btn {
+        min-height: 44px;
+        padding: 12px 20px;
+    }
+
+    /* Remove hover effects, use active states */
+    .product-card:active,
+    .luxury-product-card:active {
+        transform: translateY(-5px);
+    }
+
+    .btn-primary:active {
+        transform: translateY(-3px);
+    }
+
+    .filter-btn:active {
+        background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    }
+
+    /* Disable hover animations */
+    * {
+        -webkit-tap-highlight-color: rgba(148, 163, 184, 0.2);
+    }
+}
+
+/* ========== Print Styles ========== */
+@media print {
+
+    .glass-nav,
+    .floating-cart-btn,
+    .back-to-top,
+    .cart-sidebar,
+    .auth-modal,
+    .footer-socials {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+    }
+
+    .bg-gradient {
+        display: none !important;
+    }
+}
+
+/* ========== High DPI Screens ========== */
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+
+    .logo-img,
+    .hero-image img {
+        image-rendering: -webkit-optimize-contrast;
+    }
+}
+
+/* ========== Reduced Motion ========== */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ========== Dark Mode Support ========== */
+@media (prefers-color-scheme: dark) {
+    /* Already dark themed, but can adjust if needed */
+}

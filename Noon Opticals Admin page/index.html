@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noon Opticals - Admin Panel</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- jsPDF for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+    <!-- Access Denied Overlay (shown if not logged in) -->
+    <div id="accessDeniedOverlay" class="access-denied-overlay" style="display: none;">
+        <div class="access-denied-dialog">
+            <div class="access-denied-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h2 class="access-denied-title">Access Denied</h2>
+            <p class="access-denied-message">Please login with admin credentials to access the admin panel.</p>
+            <a href="../Noon-Opticals-Website/index.html" class="access-denied-btn">
+                <i class="fas fa-sign-in-alt"></i> Go to Login
+            </a>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgotPasswordModal" class="forgot-password-overlay" style="display: none;">
+        <div class="forgot-password-dialog">
+            <button class="forgot-password-close" id="closeForgotPassword"><i class="fas fa-times"></i></button>
+            <div class="forgot-password-icon">
+                <i class="fas fa-unlock-alt"></i>
+            </div>
+            <h2 class="forgot-password-title">Reset Password</h2>
+            <p class="forgot-password-message">Answer your security question to reset your password.</p>
+            
+            <!-- Step 1: Choose Reset Method -->
+            <div id="forgotStep1">
+                <div class="reset-method-options">
+                    <button class="reset-method-btn" id="resetWithSecurityBtn">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Security Question</span>
+                        <small>Answer your security question</small>
+                    </button>
+                    <button class="reset-method-btn" id="resetDirectBtn">
+                        <i class="fas fa-key"></i>
+                        <span>Direct Reset</span>
+                        <small>Reset password directly</small>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 1b: Security Question Verification -->
+            <div id="forgotStepSecurity" style="display:none;">
+                <div class="security-question-display" id="displaySecurityQuestion"></div>
+                <form id="verifySecurityForm">
+                    <div class="form-group">
+                        <label>Your Answer</label>
+                        <input type="text" id="verifyAnswer" placeholder="Enter your answer" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full"><i class="fas fa-check"></i> Verify Answer</button>
+                </form>
+                <button type="button" class="btn btn-outline btn-full back-btn" id="backToMethodsBtn"><i class="fas fa-arrow-left"></i> Back</button>
+                <div class="no-security-question" id="noSecurityQuestion" style="display:none;">
+                    <p><i class="fas fa-exclamation-circle"></i> No security question set up.</p>
+                    <p>Go back and use Direct Reset option.</p>
+                </div>
+            </div>
+            
+            <!-- Step 2: Reset Password -->
+            <div id="forgotStep2" style="display:none;">
+                <form id="resetPasswordForm">
+                    <div class="form-group">
+                        <label>New Password</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="resetNewPassword" placeholder="Enter new password (min 6 characters)" required minlength="6">
+                            <button type="button" class="password-toggle-btn" data-target="resetNewPassword" aria-label="Toggle password visibility">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm New Password</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="resetConfirmPassword" placeholder="Confirm new password" required>
+                            <button type="button" class="password-toggle-btn" data-target="resetConfirmPassword" aria-label="Toggle password visibility">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full"><i class="fas fa-key"></i> Reset Password</button>
+                </form>
+            </div>
+            
+            <!-- Master Reset Option -->
+            <div class="master-reset-section">
+                <hr>
+                <p class="master-reset-note"><i class="fas fa-info-circle"></i> If you cannot answer your security question, use master reset to restore default credentials.</p>
+                <button class="btn btn-danger btn-sm" id="masterResetBtn"><i class="fas fa-undo"></i> Master Reset to Default</button>
+            </div>
+        </div>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-container">
+                <img src="noon.png" alt="Noon Logo" class="logo">
+                <span class="brand-text">OPTICALS</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item active"><a href="#" class="nav-link" data-section="dashboard"><i class="fas fa-th-large"></i><span>Dashboard</span></a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-section="notifications"><i class="fas fa-bell"></i><span>Notifications</span><span class="badge notification-badge-count-sidebar" style="display: none;">0</span></a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-section="products"><i class="fas fa-glasses"></i><span>Products</span></a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-section="orders"><i class="fas fa-shopping-bag"></i><span>Orders</span><span class="badge" style="display: none;">0</span></a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-section="customers"><i class="fas fa-users"></i><span>Customers</span><span class="badge" style="display: none;">0</span></a></li>
+                <!-- <li class="nav-item"><a href="#" class="nav-link" data-section="appointments"><i class="fas fa-calendar-check"></i><span>Appointments</span><span class="badge" style="display: none;">0</span></a></li> -->
+                <li class="nav-item"><a href="#" class="nav-link" data-section="reports"><i class="fas fa-chart-line"></i><span>Analytics</span></a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-section="profile"><i class="fas fa-user-circle"></i><span>Profile</span></a></li>
+                <!-- <li class="nav-item"><a href="#" class="nav-link" data-section="settings"><i class="fas fa-cog"></i><span>Settings</span></a></li> -->
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="admin-profile" onclick="navigateTo('profile')">
+                <div class="admin-avatar" id="sidebarAdminAvatar">
+                    <img src="noon.png" alt="Admin" id="sidebarAvatarImg">
+                </div>
+                <div class="admin-info"><span class="admin-name">Admin User</span><span class="admin-role">Super Admin</span></div>
+            </div>
+            <a href="#" class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
+
+    <main class="main-content">
+        <header class="header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle" onclick="toggleMobileSidebar()"><i class="fas fa-bars"></i></button>
+                <div class="search-box"><i class="fas fa-search"></i><input type="text" placeholder="Search..." id="globalSearch" spellcheck="false" autocomplete="off"><button class="search-clear-btn" id="searchClearBtn" title="Clear search"><i class="fas fa-times"></i></button></div>
+            </div>
+            <div class="header-right">
+                <div class="notification-wrapper">
+                    <button class="header-btn" id="notificationBtn"><i class="fas fa-bell"></i><span class="notification-dot"></span></button>
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <div class="notification-header">
+                            <div class="notification-header-left">
+                                <h3><i class="fas fa-bell"></i> Notifications</h3>
+                                <span class="notification-badge-count">5 New</span>
+                            </div>
+                            <button class="mark-all-read" id="markAllRead" onclick="markAllRead()"><i class="fas fa-check-double"></i> Mark all read</button>
+                        </div>
+                        <div class="notification-tabs">
+                            <button class="notification-tab active" data-filter="all">All</button>
+                            <button class="notification-tab" data-filter="orders">Orders</button>
+                            <button class="notification-tab" data-filter="alerts">Alerts</button>
+                            <button class="notification-tab" data-filter="system">System</button>
+                        </div>
+                        <div class="notification-list" id="notificationList">
+                            <!-- Dynamic notifications rendered by JavaScript -->
+                        </div>
+                        <div class="notification-footer">
+                            <a href="#" class="view-all-link" onclick="navigateTo('orders'); closeNotifications();"><i class="fas fa-external-link-alt"></i> View All Activity</a>
+                            <button class="clear-all-btn" onclick="clearAllNotifications()"><i class="fas fa-trash-alt"></i> Clear All</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- <button class="header-btn" id="messageBtn"><i class="fas fa-envelope"></i></button> -->
+                <div class="header-profile" onclick="navigateTo('profile')">
+                    <img src="noon.png" alt="Profile" class="profile-img" id="headerProfileImg">
+                    <span>Admin</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section class="content-section active" id="dashboard">
+            <div class="section-header"><div class="section-title"><h1>Dashboard</h1><p>Welcome back! Here's what's happening today.</p></div><button class="btn btn-primary" onclick="openModal('addProduct')"><i class="fas fa-plus"></i> Add Product</button></div>
+            <div class="stats-grid">
+                <div class="stat-card"><div class="stat-icon sales"><i class="fas fa-rupee-sign"></i></div><div class="stat-info"><h3>₹1,24,500</h3><p>Total Sales</p><span class="stat-change positive"><i class="fas fa-arrow-up"></i> 12.5%</span></div></div>
+                <div class="stat-card"><div class="stat-icon orders"><i class="fas fa-shopping-cart"></i></div><div class="stat-info"><h3>356</h3><p>Total Orders</p><span class="stat-change positive"><i class="fas fa-arrow-up"></i> 8.2%</span></div></div>
+                <div class="stat-card"><div class="stat-icon customers"><i class="fas fa-users"></i></div><div class="stat-info"><h3>1,248</h3><p>Customers</p><span class="stat-change positive"><i class="fas fa-arrow-up"></i> 5.7%</span></div></div>
+                <div class="stat-card"><div class="stat-icon products"><i class="fas fa-glasses"></i></div><div class="stat-info"><h3>524</h3><p>Products</p><span class="stat-change negative"><i class="fas fa-arrow-down"></i> 2.3%</span></div></div>
+            </div>
+            <div class="dashboard-grid">
+                <div class="card chart-card"><div class="card-header"><h2>Sales Overview</h2><select class="chart-filter" id="salesFilter"><option value="7">Last 7 Days</option><option value="30">Last 30 Days</option><option value="90">Last 90 Days</option></select></div><div class="card-body"><canvas id="salesChart"></canvas></div></div>
+                <div class="card category-card"><div class="card-header"><h2>Sales by Category</h2></div><div class="card-body"><canvas id="categoryChart"></canvas><div class="category-legend"><div class="legend-item"><span class="legend-color eyeglasses"></span><span>Eyeglasses 45%</span></div><div class="legend-item"><span class="legend-color sunglasses"></span><span>Sunglasses 30%</span></div><div class="legend-item"><span class="legend-color lenses"></span><span>Lenses 15%</span></div><div class="legend-item"><span class="legend-color accessories"></span><span>Accessories 10%</span></div></div></div></div>
+            </div>
+            <div class="dashboard-grid">
+                <div class="card"><div class="card-header"><h2>Recent Orders</h2><a href="#" class="view-all" onclick="navigateTo('orders')">View All</a></div><div class="card-body"><table class="data-table"><thead><tr><th>Order</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead><tbody id="recentOrdersBody"></tbody></table></div></div>
+                <div class="card"><div class="card-header"><h2>Top Products</h2></div><div class="card-body"><div class="product-list" id="topProductsList"></div></div></div>
+            </div>
+            <!-- <div class="card"><div class="card-header"><h2>Today's Appointments</h2><a href="#" class="view-all" onclick="navigateTo('appointments')">View All</a></div><div class="card-body appointments-grid" id="todayAppointments"></div></div> -->
+        </section>
+
+        <!-- Notifications Section -->
+        <section class="content-section" id="notifications">
+            <div class="section-header">
+                <div class="section-title">
+                    <h1>Notifications</h1>
+                    <p>Stay updated with the latest alerts and activities</p>
+                </div>
+                <div class="section-actions">
+                    <button class="btn btn-outline" onclick="markAllRead()"><i class="fas fa-check-double"></i> Mark all as read</button>
+                    <button class="btn btn-primary" onclick="clearAllNotifications()"><i class="fas fa-trash-alt"></i> Clear All</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="notification-tabs">
+                        <button class="notification-tab active" data-filter="all">All</button>
+                        <button class="notification-tab" data-filter="orders">Orders</button>
+                        <button class="notification-tab" data-filter="alerts">Alerts</button>
+                        <button class="notification-tab" data-filter="system">System</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="notifications-full-list" id="notificationsFullList">
+                        <!-- Dynamic notifications will be rendered by JavaScript -->
+                    </div>
+                    <div class="no-notifications-full" id="emptyNotifView" style="display: none;">
+                        <i class="fas fa-bell-slash"></i>
+                        <h3>No notifications yet</h3>
+                        <p>We'll notify you when something important happens.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="content-section" id="products">
+            <div class="section-header"><div class="section-title"><h1>Products Management</h1><p>Manage your optical products inventory</p></div><div class="section-actions"><button class="btn btn-outline" onclick="exportData('products')"><i class="fas fa-download"></i> Export</button><button class="btn btn-primary" onclick="openModal('addProduct')"><i class="fas fa-plus"></i> Add Product</button></div></div>
+            <div class="card">
+                <div class="card-header"><div class="table-filters"><select class="filter-select" id="categoryFilter"><option value="">All Categories</option><option value="Sport">Sport</option><option value="Reading">Reading</option><option value="Sun">Sunglasses</option><option value="Blue Light">Blue Light</option><option value="Fashion">Fashion</option><option value="lenses">Contact Lenses</option><option value="accessories">Accessories</option></select><select class="filter-select" id="brandFilter"><option value="">All Brands</option><option value="noon">Noon</option><option value="rayban">Ray-Ban</option><option value="oakley">Oakley</option><option value="titan">Titan</option><option value="carrera">Carrera</option><option value="vogue">Vogue</option></select></div><div class="table-search"><i class="fas fa-search"></i><input type="text" placeholder="Search products..." id="productSearch"></div></div>
+                <div class="card-body"><div class="products-grid" id="productsGrid"></div></div>
+            </div>
+        </section>
+
+        <!-- Orders Section -->
+        <section class="content-section" id="orders">
+            <div class="section-header"><div class="section-title"><h1>Orders Management</h1><p>Track and manage customer orders</p></div><div class="section-actions"><button class="btn btn-outline" onclick="openOrderFilter()"><i class="fas fa-filter"></i> Filter</button><button class="btn btn-outline" onclick="exportData('orders')"><i class="fas fa-download"></i> Export</button></div></div>
+            <div class="order-stats">
+                <div class="order-stat-card"><div class="order-stat-icon pending"><i class="fas fa-clock"></i></div><div class="order-stat-info"><h3 id="pendingCount">24</h3><p>Pending</p></div></div>
+                <div class="order-stat-card"><div class="order-stat-icon processing"><i class="fas fa-cog"></i></div><div class="order-stat-info"><h3 id="processingCount">18</h3><p>Processing</p></div></div>
+                <div class="order-stat-card"><div class="order-stat-icon shipped"><i class="fas fa-truck"></i></div><div class="order-stat-info"><h3 id="shippedCount">45</h3><p>Shipped</p></div></div>
+                <div class="order-stat-card"><div class="order-stat-icon delivered"><i class="fas fa-check-circle"></i></div><div class="order-stat-info"><h3 id="deliveredCount">289</h3><p>Delivered</p></div></div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <!-- Card Grid View (Always visible) -->
+                    <div class="orders-grid" id="ordersGrid"></div>
+                    
+                    <div class="table-pagination">
+                        <span class="pagination-info">Showing 1-10 of 356 orders</span>
+                        <div class="pagination-controls" id="ordersPagination"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customers Section -->
+        <section class="content-section" id="customers">
+            <div class="section-header"><div class="section-title"><h1>Customers</h1><p>Manage your customer database</p></div><div class="section-actions"><button class="btn btn-outline" onclick="exportData('customers')"><i class="fas fa-download"></i> Export</button><button class="btn btn-primary" onclick="openModal('addCustomer')"><i class="fas fa-plus"></i> Add Customer</button></div></div>
+            <div class="customers-stats">
+                <div class="stat-card"><div class="stat-icon customers"><i class="fas fa-users"></i></div><div class="stat-info"><h3>1,248</h3><p>Total Customers</p></div></div>
+                <div class="stat-card"><div class="stat-icon sales"><i class="fas fa-user-plus"></i></div><div class="stat-info"><h3>48</h3><p>New This Month</p></div></div>
+                <div class="stat-card"><div class="stat-icon orders"><i class="fas fa-star"></i></div><div class="stat-info"><h3>156</h3><p>VIP Members</p></div></div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="table-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search customers..." id="customerSearch">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Card Grid View (Always visible) -->
+                    <div class="customers-grid" id="customersGrid"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Appointments Section (COMMENTED OUT)
+        <section class="content-section" id="appointments">
+            <div class="section-header"><div class="section-title"><h1>Appointments</h1><p>Manage eye examination appointments</p></div><div class="section-actions"><button class="btn btn-primary" onclick="openModal('addAppointment')"><i class="fas fa-plus"></i> New Appointment</button></div></div>
+            <div class="appointments-stats">
+                <div class="stat-card"><div class="stat-icon sales"><i class="fas fa-calendar-day"></i></div><div class="stat-info"><h3 id="todayApptCount">8</h3><p>Today</p></div></div>
+                <div class="stat-card"><div class="stat-icon orders"><i class="fas fa-calendar-week"></i></div><div class="stat-info"><h3>24</h3><p>This Week</p></div></div>
+                <div class="stat-card"><div class="stat-icon customers"><i class="fas fa-check-circle"></i></div><div class="stat-info"><h3>156</h3><p>Completed</p></div></div>
+            </div>
+            <div class="card"><div class="card-header"><h2>Upcoming Appointments</h2><div class="appointment-filters"><select class="filter-select" id="apptDateFilter"><option value="today">Today</option><option value="week">This Week</option><option value="month">This Month</option></select><select class="filter-select" id="apptTypeFilter"><option value="">All Types</option><option value="exam">Eye Examination</option><option value="fitting">Lens Fitting</option><option value="trial">Contact Lens Trial</option><option value="checkup">Full Checkup</option></select></div></div><div class="card-body"><div class="appointments-list" id="appointmentsList"></div></div></div>
+        </section>
+        -->
+
+        <!-- Analytics Section -->
+        <section class="content-section" id="reports">
+            <div class="section-header"><div class="section-title"><h1>Analytics & Reports</h1><p>View detailed analytics and business insights</p></div><div class="section-actions"><button class="btn btn-outline" onclick="exportData('reports')"><i class="fas fa-download"></i> Export Report</button></div></div>
+            <div class="analytics-grid">
+                <div class="card"><div class="card-header"><h2>Revenue Trends</h2><select class="chart-filter"><option>Last 12 Months</option><option>Last 6 Months</option></select></div><div class="card-body"><canvas id="revenueChart"></canvas></div></div>
+                <div class="card"><div class="card-header"><h2>Customer Growth</h2></div><div class="card-body"><canvas id="customerGrowthChart"></canvas></div></div>
+            </div>
+            <div class="analytics-grid">
+                <div class="card"><div class="card-header"><h2>Top Selling Products</h2></div><div class="card-body"><div class="top-sellers-list" id="topSellersList"></div></div></div>
+                <div class="card"><div class="card-header"><h2>Sales by Region</h2></div><div class="card-body"><canvas id="regionChart"></canvas></div></div>
+            </div>
+            <div class="card"><div class="card-header"><h2>Monthly Performance</h2></div><div class="card-body"><div class="performance-metrics"><div class="metric-item"><div class="metric-value">₹4,52,000</div><div class="metric-label">Monthly Revenue</div><div class="metric-bar"><div class="bar-fill" style="width: 85%"></div></div></div><div class="metric-item"><div class="metric-value">892</div><div class="metric-label">Orders Completed</div><div class="metric-bar"><div class="bar-fill" style="width: 72%"></div></div></div><div class="metric-item"><div class="metric-value">98.5%</div><div class="metric-label">Customer Satisfaction</div><div class="metric-bar"><div class="bar-fill" style="width: 98%"></div></div></div><div class="metric-item"><div class="metric-value">4.8</div><div class="metric-label">Average Rating</div><div class="metric-bar"><div class="bar-fill" style="width: 96%"></div></div></div></div></div></div>
+        </section>
+
+        <!-- Profile Section -->
+        <section class="content-section" id="profile">
+            <div class="section-header"><div class="section-title"><h1>Profile Settings</h1><p>Manage your account and preferences</p></div></div>
+            <div class="profile-container">
+                <div class="profile-sidebar">
+                    <div class="profile-card">
+                        <div class="profile-avatar-large">
+                            <img src="noon.png" alt="Profile" id="profileDisplayLarge">
+                            <input type="file" id="profileUploadInput" hidden accept="image/*">
+                            <button class="avatar-edit-btn" id="triggerProfileUpload"><i class="fas fa-camera"></i></button>
+                        </div>
+                        <h2 class="profile-name">Admin User</h2>
+                        <p class="profile-role">Super Administrator</p>
+                        <div class="profile-stats"><div class="profile-stat"><span class="stat-number">356</span><span class="stat-label">Orders</span></div><div class="profile-stat"><span class="stat-number">1.2K</span><span class="stat-label">Customers</span></div><div class="profile-stat"><span class="stat-number">524</span><span class="stat-label">Products</span></div></div>
+                    </div>
+                    <div class="profile-menu">
+                        <a href="#" class="profile-menu-item active" data-tab="personal"><i class="fas fa-user"></i> Personal Info</a>
+                        <a href="#" class="profile-menu-item" data-tab="security"><i class="fas fa-lock"></i> Security</a>
+                        <a href="#" class="profile-menu-item" data-tab="notifications"><i class="fas fa-bell"></i> Notifications</a>
+                        <a href="#" class="profile-menu-item" data-tab="activity"><i class="fas fa-history"></i> Activity Log</a>
+                    </div>
+                </div>
+                <div class="profile-content">
+                    <div class="profile-tab active" id="personal-tab">
+                        <div class="card"><div class="card-header"><h2>Personal Information</h2><button class="btn btn-primary btn-sm" id="editProfileBtn"><i class="fas fa-edit"></i> Edit</button></div><div class="card-body">
+                            <form class="profile-form" id="profileForm">
+                                <div class="form-row"><div class="form-group"><label>First Name</label><input type="text" value="Admin" id="firstName" disabled></div><div class="form-group"><label>Last Name</label><input type="text" value="User" id="lastName" disabled></div></div>
+                                <div class="form-row"><div class="form-group"><label>Email Address</label><input type="email" value="noon@gmail.com" id="email" disabled></div><div class="form-group"><label>Phone Number</label><input type="tel" value="+91 98765 43210" id="phone" disabled></div></div>
+                                <div class="form-row"><div class="form-group"><label>Role</label><input type="text" value="Super Administrator" disabled></div><div class="form-group"><label>Department</label><input type="text" value="Management" id="department" disabled></div></div>
+                                <div class="form-group full-width"><label>Address</label><textarea id="address" disabled>123 Business Park, Mumbai, Maharashtra 400001</textarea></div>
+                                <div class="form-actions" id="profileActions" style="display:none"><button type="submit" class="btn btn-primary">Save Changes</button><button type="button" class="btn btn-outline" id="cancelEdit">Cancel</button></div>
+                            </form>
+                        </div></div>
+                    </div>
+                    <div class="profile-tab" id="security-tab">
+                        <div class="card"><div class="card-header"><h2>Security Settings</h2></div><div class="card-body">
+                            <form class="security-form" id="securityForm">
+                                <div class="form-group"><label>Current Password</label><div class="password-input-wrapper"><input type="password" id="currentPassword" placeholder="Enter current password" required><button type="button" class="password-toggle-btn" data-target="currentPassword" aria-label="Toggle password visibility"><i class="fas fa-eye"></i></button></div></div>
+                                <div class="form-group"><label>New Password</label><div class="password-input-wrapper"><input type="password" id="newPassword" placeholder="Enter new password (min 6 characters)" required minlength="6"><button type="button" class="password-toggle-btn" data-target="newPassword" aria-label="Toggle password visibility"><i class="fas fa-eye"></i></button></div></div>
+                                <div class="form-group"><label>Confirm New Password</label><div class="password-input-wrapper"><input type="password" id="confirmPassword" placeholder="Confirm new password" required><button type="button" class="password-toggle-btn" data-target="confirmPassword" aria-label="Toggle password visibility"><i class="fas fa-eye"></i></button></div></div>
+                                <div class="form-actions-row">
+                                    <button type="submit" class="btn btn-primary"><i class="fas fa-key"></i> Update Password</button>
+                                    <button type="button" class="btn btn-outline" id="forgotPasswordBtn"><i class="fas fa-question-circle"></i> Forgot Password?</button>
+                                </div>
+                            </form>
+                            
+                            <!-- Security Question Setup -->
+                            <div class="security-question-setup" id="securityQuestionSetup">
+                                <h3><i class="fas fa-shield-alt"></i> Security Question</h3>
+                                <p class="security-note">Set up a security question to recover your password if forgotten.</p>
+                                <form id="securityQuestionForm">
+                                    <div class="form-group">
+                                        <label>Security Question</label>
+                                        <select id="securityQuestion" required>
+                                            <option value="">Select a security question...</option>
+                                            <option value="pet">What is your pet's name?</option>
+                                            <option value="city">What city were you born in?</option>
+                                            <option value="school">What was your first school's name?</option>
+                                            <option value="food">What is your favorite food?</option>
+                                            <option value="custom">Custom question...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="customQuestionGroup" style="display:none">
+                                        <label>Custom Question</label>
+                                        <input type="text" id="customQuestion" placeholder="Enter your custom question">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Your Answer</label>
+                                        <input type="text" id="securityAnswer" placeholder="Enter your answer" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Security Question</button>
+                                </form>
+                                <div class="security-status" id="securityStatus"></div>
+                            </div>
+                            
+                            <div class="security-options">
+                                <h3>Two-Factor Authentication</h3>
+                                <div class="toggle-option"><span>Enable 2FA</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                                <h3>Login Sessions</h3>
+                                <div class="session-list"><div class="session-item"><div class="session-info"><i class="fas fa-desktop"></i><div><strong>Windows PC - Chrome</strong><span>Mumbai, India • Active now</span></div></div><span class="session-status active">Current</span></div><div class="session-item"><div class="session-info"><i class="fas fa-mobile-alt"></i><div><strong>iPhone 14 - Safari</strong><span>Mumbai, India • 2 hours ago</span></div></div><button class="btn btn-sm btn-outline">Revoke</button></div></div>
+                            </div>
+                        </div></div>
+                    </div>
+                    <div class="profile-tab" id="notifications-tab">
+                        <div class="card"><div class="card-header"><h2>Notification Preferences</h2></div><div class="card-body">
+                            <div class="notification-settings">
+                                <div class="notification-group"><h3>Email Notifications</h3><div class="toggle-option"><span>New Orders</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div><div class="toggle-option"><span>Low Stock Alerts</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div><div class="toggle-option"><span>Customer Reviews</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div><div class="toggle-option"><span>Weekly Reports</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div></div>
+                                <div class="notification-group"><h3>Push Notifications</h3><div class="toggle-option"><span>Order Updates</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div><div class="toggle-option"><span>Appointment Reminders</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div><div class="toggle-option"><span>System Alerts</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div></div>
+                            </div>
+                        </div></div>
+                    </div>
+                    <div class="profile-tab" id="activity-tab">
+                        <div class="card"><div class="card-header"><h2>Recent Activity</h2><div class="activity-actions"><button class="btn btn-sm btn-outline" onclick="clearActivityLog()"><i class="fas fa-trash-alt"></i> Clear All</button></div></div><div class="card-body">
+                            <div class="activity-timeline" id="activityTimeline"></div>
+                            <div class="empty-activity" id="emptyActivity" style="display: none; text-align: center; padding: 40px; color: #666;">
+                                <i class="fas fa-history" style="font-size: 48px; margin-bottom: 15px; opacity: 0.3;"></i>
+                                <p>No recent activity</p>
+                            </div>
+                        </div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <!-- <section class="content-section" id="settings">
+            <div class="section-header"><div class="section-title"><h1>Settings</h1><p>Configure your admin panel</p></div></div>
+            <div class="settings-grid">
+                <div class="card"><div class="card-header"><h2><i class="fas fa-store"></i> Store Settings</h2></div><div class="card-body">
+                    <form class="settings-form">
+                        <div class="form-group"><label>Store Name</label><input type="text" value="Noon Opticals"></div>
+                        <div class="form-group"><label>Store Email</label><input type="email" value="info@noonopticals.com"></div>
+                        <div class="form-group"><label>Store Phone</label><input type="tel" value="+91 98765 43210"></div>
+                        <div class="form-group"><label>Store Address</label><textarea>123 Vision Street, Mumbai, Maharashtra 400001</textarea></div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div></div>
+                <div class="card"><div class="card-header"><h2><i class="fas fa-palette"></i> Appearance</h2></div><div class="card-body">
+                    <div class="appearance-options">
+                        <div class="theme-selector"><h3>Theme</h3><div class="theme-options"><button class="theme-btn active" data-theme="dark"><i class="fas fa-moon"></i> Dark</button><button class="theme-btn" data-theme="light"><i class="fas fa-sun"></i> Light</button></div></div>
+                        <div class="color-selector"><h3>Accent Color</h3><div class="color-options"><span class="color-option active" style="background: linear-gradient(135deg, #667eea, #764ba2)"></span><span class="color-option" style="background: linear-gradient(135deg, #f093fb, #f5576c)"></span><span class="color-option" style="background: linear-gradient(135deg, #4facfe, #00f2fe)"></span><span class="color-option" style="background: linear-gradient(135deg, #43e97b, #38f9d7)"></span></div></div>
+                    </div>
+                </div></div>
+                <div class="card"><div class="card-header"><h2><i class="fas fa-credit-card"></i> Payment Settings</h2></div><div class="card-body">
+                    <div class="payment-methods">
+                        <div class="payment-option"><input type="checkbox" id="cod" checked><label for="cod"><i class="fas fa-money-bill"></i> Cash on Delivery</label></div>
+                        <div class="payment-option"><input type="checkbox" id="upi" checked><label for="upi"><i class="fas fa-qrcode"></i> UPI Payment</label></div>
+                        <div class="payment-option"><input type="checkbox" id="card" checked><label for="card"><i class="fas fa-credit-card"></i> Credit/Debit Card</label></div>
+                        <div class="payment-option"><input type="checkbox" id="netbanking"><label for="netbanking"><i class="fas fa-university"></i> Net Banking</label></div>
+                    </div>
+                </div></div>
+                <div class="card"><div class="card-header"><h2><i class="fas fa-truck"></i> Shipping Settings</h2></div><div class="card-body">
+                    <form class="settings-form">
+                        <div class="form-group"><label>Free Shipping Above</label><input type="text" value="₹2,000"></div>
+                        <div class="form-group"><label>Standard Shipping Fee</label><input type="text" value="₹99"></div>
+                        <div class="form-group"><label>Express Shipping Fee</label><input type="text" value="₹199"></div>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </div></div>
+            </div>
+        </section> -->
+    </main>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <div class="modal-header"><h2 id="modalTitle">Add Product</h2><button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button></div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Custom Confirm Dialog -->
+    <div class="confirm-overlay" id="confirmOverlay">
+        <div class="confirm-dialog">
+            <div class="confirm-icon" id="confirmIcon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3 class="confirm-title" id="confirmTitle">Are you sure?</h3>
+            <p class="confirm-message" id="confirmMessage">This action cannot be undone.</p>
+            <div class="confirm-actions">
+                <button class="confirm-btn cancel" id="confirmCancelBtn">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="confirm-btn confirm" id="confirmOkBtn">
+                    <i class="fas fa-check"></i> Confirm
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Firebase SDK (Firestore only - no auth) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Firebase configuration and data manager -->
+    <script src="firebase-config.js"></script>
+    <script src="firebase-data.js"></script>
+    
+    <!-- Email Service for customer notifications -->
+    <script src="email-service.js"></script>
+    
+    <script src="sharedData.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

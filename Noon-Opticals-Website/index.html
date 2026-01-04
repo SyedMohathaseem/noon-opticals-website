@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+
+    <!-- FIXED VIEWPORT (CRITICAL FOR MOBILE BUG) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description"
+        content="NOON Opticals - Premium eyewear with modern design, UV protection, and blue-light filtering. Find your perfect frame today.">
+    <meta name="keywords" content="eyewear, glasses, sunglasses, blue light glasses, reading glasses, NOON Opticals">
+    <meta name="author" content="">
+    <meta name="theme-color" content="#0a0a12">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://noonopticals.com/">
+    <meta property="og:title" content="NOON Opticals - Modern Eyewear">
+    <meta property="og:description" content="Premium eyewear with style and optical clarity">
+    <meta property="og:image" content="assets/images/logo.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="NOON Opticals - Modern Eyewear">
+    <meta property="twitter:description" content="Premium eyewear with style and optical clarity">
+
+    <!-- Mobile Web App -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="NOON Opticals">
+
+    <title>NOON Opticals | Premium Modern Eyewear</title>
+
+    <!-- Performance: Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://www.gstatic.com">
+    <link rel="preconnect" href="https://firebaseinstallations.googleapis.com">
+    <link rel="preconnect" href="https://firestore.googleapis.com">
+    <link rel="preconnect" href="https://accounts.google.com">
+
+    <!-- Fonts (stable loading) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Critical CSS (unchanged except SAFE viewport behavior) -->
+    <style>
+        html {
+            background: #070710;
+        }
+
+        :root {
+            --primary: #fff;
+            --text: #1a1a1a;
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --glass-border: rgba(148, 163, 184, 0.3);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+            --accent: #94A3B8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100svh;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+            color: var(--text);
+            background: #070710;
+        }
+
+        /* FIXED BACKGROUND */
+        .bg-gradient {
+            position: fixed;
+            inset: 0;
+            height: 100svh;
+            z-index: -1;
+            background: linear-gradient(165deg, #070710 0%, #0a0a12 15%, #0d0d18 30%, #0f0f1a 45%, #0d0d18 60%, #0a0a12 75%, #070710 100%);
+        }
+
+
+
+        .cart-sidebar {
+            background: linear-gradient(135deg, rgba(20, 25, 35, 0.95), rgba(15, 20, 30, 0.98)) !important;
+            backdrop-filter: blur(30px) !important;
+            -webkit-backdrop-filter: blur(30px) !important;
+        }
+
+        .hero {
+            min-height: 100svh;
+            /* FIXED */
+            padding-top: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @supports not (height: 100svh) {
+
+            body,
+            .hero {
+                min-height: 100vh;
+            }
+        }
+
+        /* Mobile/Tablet: search bar scrolls with content, not fixed */
+        @media (max-width: 1024px) {
+            .hero {
+                padding-top: 20px;
+                /* reduced since search bar flows naturally, not fixed */
+            }
+        }
+
+        @media (max-width:768px) {
+            body {
+                overflow-x: hidden;
+            }
+        }
+
+        /* iOS scroll lock - prevents body scroll when modal is open */
+        body.scroll-locked {
+            position: fixed !important;
+            overflow: hidden !important;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        html.scroll-locked {
+            overflow: hidden !important;
+        }
+
+        /* Remove tap highlight globally */
+        * {
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-touch-callout: none;
+        }
+
+        a,
+        button,
+        [onclick],
+        input,
+        select {
+            -webkit-tap-highlight-color: transparent !important;
+            outline: none !important;
+        }
+    </style>
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        crossorigin="anonymous">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css?v=50">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+</head>
+
+
+<body>
+
+    <div class="bg-gradient"></div>
+
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="assets/images/logo.png" alt="Noon Opticals Logo" class="logo-img" loading="lazy"
+                    decoding="async">
+                <img src="assets/images/noon.png" alt="Noon" class="logo-text-img" loading="lazy" decoding="async">
+                <span class="logo-opticals">OPTICALS</span>
+            </a>
+
+            <div class="search-container">
+                <div class="search-bar">
+                    <i class="fa-solid fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search eyewear..." id="searchInput">
+                    <button class="search-clear-btn" type="button" title="Clear">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                    <button class="voice-search-btn" id="voiceSearchBtn" type="button" title="Voice Search">
+                        <i class="fa-solid fa-microphone"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="nav-right">
+                <ul class="nav-menu">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#shop">Shop</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <button class="login-btn" id="loginBtn">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Login</span>
+                    </button>
+                    <div class="menu-toggle">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+                </div>
+            </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <!-- Mobile/Tablet Search Bar (INSIDE hero for gradient bg) -->
+        <div class="mobile-search-container">
+            <div class="search-bar">
+                <i class="fa-solid fa-search search-icon"></i>
+                <input type="text" class="search-input mobile-search-input" placeholder="Search eyewear...">
+                <button class="search-clear-btn mobile-clear-btn" type="button" title="Clear">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <button class="voice-search-btn mobile-voice-btn" type="button" title="Voice Search">
+                    <i class="fa-solid fa-microphone"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="hero-bg-elements">
+            <div class="hero-glow"></div>
+            <div class="floating-glasses">
+                <i class="fa-solid fa-glasses"></i>
+            </div>
+        </div>
+
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <span class="badge-dot"></span>
+                        <span>New Collection 2k26</span>
+                    </div>
+                    <h1 class="hero-title">
+                        <span class="title-line">See Life in</span>
+                        <span class="title-highlight">High Definition</span>
+                    </h1>
+                    <p class="hero-description">Experience the perfect blend of style and optical clarity. Premium
+                        frames crafted for the modern visionary.</p>
+
+                    <div class="hero-cta">
+                        <a href="#shop" class="btn-primary">
+                            <span>Shop Frames</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#features" class="btn-secondary">
+                            <span>Learn More</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">3</span>
+                            <span class="stat-heading">Step Quality Check</span>
+                            <span class="stat-subtitle">Frame • Lens • Fit</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-number">100+</span>
+                            <span class="stat-heading">Frame Options</span>
+                            <span class="stat-subtitle">Modern & comfortable designs</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-number">0%</span>
+                            <span class="stat-heading">Hidden Charges</span>
+                            <span class="stat-subtitle">Honest optical pricing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-image">
+                    <div class="image-wrapper">
+                        <div class="image-frame"></div>
+                        <!-- Performance: Eager load hero image (LCP element) with fetchpriority -->
+                        <img src="assets/images/hero%20img.jpeg" alt="Premium Glasses" loading="eager" decoding="async"
+                            fetchpriority="high">
+                        <div class="image-overlay"></div>
+                    </div>
+                    <div class="floating-card card-1">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>1 Year Warranty</span>
+                    </div>
+                    <div class="floating-card card-2">
+                        <i class="fa-solid fa-truck-fast"></i>
+                        <span>Free Delivery</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="scroll-arrow">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p>Explore</p>
+        </div>
+    </section>
+
+    <!-- Promotional Banner -->
+    <section class="promo-banner">
+        <div class="container">
+            <div class="promo-content">
+                <div class="promo-text">
+                    <h3 class="promo-title">Lens Starting From <span class="promo-highlight">₹699</span></h3>
+                    <p class="promo-subtitle">And Get Free Frames with Every Purchase</p>
+                </div>
+                <a href="#shop" class="promo-cta">
+                    <span>Shop Now</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="section-padding">
+        <div class="container">
+            <div class="features-section">
+                <div class="features-header">
+                    <span class="features-eyebrow">Why Choose Us</span>
+                    <h2 class="features-title">NOON OPTICALS</h2>
+                    <p class="features-subtitle">Premium eyewear designed for comfort, clarity, and style — backed by
+                        transparent pricing and personal care.</p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card-new">
+                        <div class="feature-card-inner">
+                            <div class="feature-icon-new">
+                                <i class="fa-solid fa-eye"></i>
+                            </div>
+                            <h3 class="feature-card-title">Premium Lenses</h3>
+                            <p class="feature-card-description">Blue-light filtering and UV protection for crystal-clear
+                                vision.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card-new">
+                        <div class="feature-card-inner">
+                            <div class="feature-icon-new">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <h3 class="feature-card-title">1-Year Warranty</h3>
+                            <p class="feature-card-description">Free repairs and replacements with 30-day returns.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card-new">
+                        <div class="feature-card-inner">
+                            <div class="feature-icon-new">
+                                <i class="fa-solid fa-tag"></i>
+                            </div>
+                            <h3 class="feature-card-title">Fair Pricing</h3>
+                            <p class="feature-card-description">Premium quality without the markup. No hidden fees.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card-new">
+                        <div class="feature-card-inner">
+                            <div class="feature-icon-new">
+                                <i class="fa-solid fa-truck-fast"></i>
+                            </div>
+                            <h3 class="feature-card-title">Fast Delivery</h3>
+                            <p class="feature-card-description">Free shipping with tracking in 3-5 business days.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="shop" class="section-padding shop-section">
+        <div class="container">
+            <div class="shop-header">
+                <div class="shop-header-content">
+                    <span class="shop-eyebrow">Premium Collection</span>
+                    <h2 class="shop-title">Trending Now</h2>
+                    <p class="shop-subtitle">Curated eyewear for every lifestyle. Discover your perfect frame.</p>
+                </div>
+                <div class="shop-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="sun">Sun</button>
+                    <button class="filter-btn" data-filter="reading">Reading</button>
+                    <button class="filter-btn" data-filter="blue-light">Blue Light</button>
+                </div>
+            </div>
+            <div class="product-grid" id="productGrid"></div>
+            <div class="shop-actions">
+                <button class="load-more-btn" id="loadMoreBtn">
+                    <span>Show more styles</span>
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Branches Section -->
+    <section id="branches" class="section-padding branches-section">
+        <div class="container">
+            <div class="contact-header">
+                <h2 class="contact-title">Our Branches</h2>
+                <p class="contact-subtitle">Find the Noon Opticals location that's most convenient for you.</p>
+            </div>
+
+            <div class="branches-grid">
+                <div class="branch-card">
+                    <div class="branch-top">
+                        <span class="branch-badge">Main Branch</span>
+                        <h3 class="branch-name">HOSUR</h3>
+                        <p class="branch-address">HIG-47/2, Avalapalli Rd, Avalapalli Hudco, <br>Hosur, Tamil Nadu -
+                            635109</p>
+                    </div>
+                    <div class="branch-meta">
+                        <div class="meta-item call-card" data-phone="+919655802510">
+                            <i class="fas fa-phone-alt"></i>
+                            <a href="tel:+919655802510">+91 96558 02510</a>
+
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Mon - Sat: 9:00 AM - 10:00 PM | Sun: Closed</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-location-arrow"></i>
+                            <a href="https://www.google.com/maps/search/?api=1&query=HIG-47%2F2%2C+Avalapalli+Rd%2C+Avalapalli+Hudco%2C+Hosur%2C+Tamil+Nadu+635109"
+                                target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="branch-card">
+                    <div class="branch-top">
+                        <span class="branch-badge">Allied Branch</span>
+                        <h3 class="branch-name">PERNAMBUT</h3>
+                        <p class="branch-address">Near Lal Masjid, Aachari Street<br>Pernambut, Tamil Nadu - 635810</p>
+                    </div>
+                    <div class="branch-meta">
+                        <div class="meta-item call-card" data-phone="+917010531695">
+                            <i class="fas fa-phone-alt"></i>
+                            <a href="tel:+917010531695">+91 70105 31695</a>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Mon - Sun: 9:00 AM - 10:00 PM</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-location-arrow"></i>
+                            <a href="https://www.google.com/maps/search/?api=1&query=Near+Lal+Masjid%2C+Aachari+Street%2C+Pernambut%2C+Tamil+Nadu+635810"
+                                target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-padding contact-section">
+        <div class="container">
+            <div class="contact-header">
+                <h2 class="contact-title">Get In Touch</h2>
+                <p class="contact-subtitle">We'd love to hear from you. Reach out with any questions or inquiries.</p>
+            </div>
+
+            <div class="contact-content">
+                <!-- Contact Information Card -->
+                <div class="contact-card info-card">
+                    <h3 class="card-heading">Contact Information</h3>
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info-text">
+                                <h4>Location</h4>
+                                <p>HIG-47/2, Avalapalli Rd, Avalapalli Hudco, <br>Hosur, Tamil Nadu - 635109<br></p>
+                            </div>
+                        </div>
+
+                        <div class="info-item call-card" data-phone="+917010531695">
+                            <div class="info-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="info-text">
+                                <h4>Phone</h4>
+                                <p><a href="tel:+917010531695">+91 70105 31695</a><br><span class="time-info">Mon-Sat,
+                                        10am-9pm IST</span></p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="info-text">
+                                <h4>Email</h4>
+                                <p><a href="mailto:noonopticals@gmail.com">noonopticals@gmail.com</a></p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="info-text">
+                                <h4>Business Hours</h4>
+                                <p>Monday - Saturday<br><span class="time-info">9:00 AM - 10:00 PM IST</span><br><span
+                                        class="time-info">Sunday: Closed</span></p>
+                            </div>
+                        </div>
+
+                        <div class="social-section">
+                            <p class="social-label">Follow Us</p>
+                            <div class="social-icons">
+                                <a href="https://www.instagram.com/noon_opticals_pbt?igsh=Y2gwYW56eXF1aWpz"
+                                    class="social-icon" title="Instagram" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="https://wa.me/917010531695" class="social-icon" title="WhatsApp"
+                                    target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="https://www.facebook.com/share/1DFskkeogd/" class="social-icon"
+                                    title="Facebook" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form Card -->
+                <div class="contact-card form-card">
+                    <h3 class="card-heading">Send us a Message</h3>
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-field">
+                            <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+                        </div>
+
+                        <div class="form-field">
+                            <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+                        </div>
+
+                        <div class="form-field">
+                            <input type="email" id="email" name="email" placeholder="Email Address" required>
+                        </div>
+
+                        <div class="form-field">
+                            <input type="tel" id="phone" name="phone" placeholder="Phone Number (Optional)">
+                        </div>
+
+                        <div class="form-field message-field">
+                            <textarea id="message" name="message" placeholder="Your Message" rows="5"
+                                required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span>Send Message</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="glass-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Brand Column -->
+                <div class="footer-col footer-col-brand">
+                    <a href="#home" class="footer-brand">
+                        <!-- Performance: Lazy load footer images -->
+                        <img src="assets/images/logo.png" alt="Noon Opticals Logo" class="footer-logo-img"
+                            loading="lazy" decoding="async">
+                        <img src="assets/images/noon.png" alt="Noon" class="footer-noon-img" loading="lazy"
+                            decoding="async">
+                        <span class="footer-brand-text">OPTICALS</span>
+                    </a>
+                    <p class="footer-desc">
+                        Your trusted destination for stylish, high-quality eyewear that blends fashion with
+                        functionality — crafted for comfort, clarity, and everyday confidence.
+                    </p>
+                    <div class="footer-socials">
+                        <a href="https://instagram.com" target="_blank" class="footer-social-icon"
+                            aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me" target="_blank" class="footer-social-icon" aria-label="WhatsApp">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" class="footer-social-icon" aria-label="Facebook">
+                            <i class="fa-brands fa-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links Column -->
+                <div class="footer-col">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#shop"><i class="fas fa-chevron-right"></i> Shop</a></li>
+                        <li><a href="#features"><i class="fas fa-chevron-right"></i> Features</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info Column -->
+                <div class="footer-col footer-col-contact">
+                    <h4 class="footer-title">Get in Touch</h4>
+                    <ul class="footer-contact-list">
+                        <li class="footer-contact-item call-card" data-phone="+919876543210">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">Call Us</span>
+                                <a href="tel:+919876543210">+91 98765 43210</a>
+                            </div>
+                        </li>
+                        <li class="footer-contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">Visit Us</span>
+                                <span class="contact-text">HIG-47/2, Avalapalli Rd, Avalapalli Hudco,
+                                    Hosur, Tamil Nadu</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="footer-left">
+                        <p class="copyright">
+                            © 2026 <strong>NOON Opticals</strong>. All Rights Reserved.
+                        </p>
+                    </div>
+                    <div class="footer-center">
+                        <span class="dev-credit">Developed by <strong>Azhan</strong></span>
+                    </div>
+                    <div class="footer-right">
+                        <div class="footer-legal">
+                            <a href="#" class="legal-link" data-legal="privacy">Privacy Policy</a>
+                            <span class="separator">|</span>
+                            <a href="#" class="legal-link" data-legal="terms">Terms of Service</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Cart Button -->
+    <div class="floating-cart-btn" onclick="toggleCart()">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span class="floating-cart-badge" id="floatingCartCount">0</span>
+    </div>
+
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <span class="close-cart" onclick="toggleCart()">&times;</span>
+        </div>
+        <div class="cart-items" id="cartItems">
+        </div>
+        <div class="cart-footer">
+            <div class="total">Total: <span id="cartTotal">$0.00</span></div>
+            <button class="checkout-btn" onclick="checkoutViaWhatsApp()">
+                <i class="fab fa-whatsapp" style="margin-right: 8px;"></i>Checkout via WhatsApp
+            </button>
+        </div>
+    </div>
+    <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+
+    <!-- Legal Modal -->
+    <div class="legal-modal" id="legalModal" aria-hidden="true" role="dialog">
+        <div class="legal-modal-overlay" data-close-legal></div>
+        <div class="legal-modal-content" role="document">
+            <button class="legal-close" aria-label="Close" data-close-legal>&times;</button>
+            <div class="legal-tabs">
+                <button class="legal-tab active" data-legal-tab="privacy">Privacy Policy</button>
+                <button class="legal-tab" data-legal-tab="terms">Terms of Service</button>
+            </div>
+
+            <div class="legal-body">
+                <div class="legal-pane active" data-legal-pane="privacy">
+                    <h3>Privacy Policy</h3>
+                    <p>At NOON OPTICALS, we respect your privacy and are committed to protecting your personal
+                        information.</p>
+                    <p>We may collect basic details such as your name, phone number, email address, or delivery address
+                        when you contact us, place an order, or fill out a form on our website.</p>
+                    <p>Your information is used only to:</p>
+                    <ul>
+                        <li>Process orders and inquiries</li>
+                        <li>Improve our products and services</li>
+                        <li>Communicate with you regarding your requests</li>
+                    </ul>
+                    <p>We do not sell, trade, or misuse your personal data.</p>
+                    <p>We take reasonable measures to keep your information safe. By using our website, you agree to
+                        this Privacy Policy.</p>
+                </div>
+
+                <div class="legal-pane" data-legal-pane="terms">
+                    <h3>Terms of Service</h3>
+                    <p>By accessing or using the NOON OPTICALS website, you agree to follow these terms.</p>
+                    <ul>
+                        <li>Product images are for display purposes and may slightly vary.</li>
+                        <li>Prices, availability, and offers are subject to change without prior notice.</li>
+                        <li>Orders are subject to confirmation.</li>
+                        <li>We are not responsible for delays caused by external factors.</li>
+                        <li>Content on this website is for general information purposes only.</li>
+                        <li>We reserve the right to update these terms at any time.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Login/Signup Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-modal-content">
+            <span class="auth-close" id="authClose">&times;</span>
+            <div class="auth-modal-inner">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">Login</button>
+                    <button class="auth-tab" data-tab="signup">Sign Up</button>
+                </div>
+
+                <!-- Login Form -->
+                <div class="auth-form-container active" id="loginForm">
+                    <h2>Welcome Back</h2>
+                    <p class="auth-subtitle">Login to access your account</p>
+
+                    <form class="auth-form" id="loginFormElement" autocomplete="on">
+                        <div class="auth-input-group">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" name="username" id="loginEmail" placeholder="Email" autocomplete="email" required>
+                        </div>
+
+                        <div class="auth-input-group">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" name="password" id="loginPassword" placeholder="Password" autocomplete="current-password" required>
+                            <button type="button" class="password-toggle-btn" data-target="loginPassword" aria-label="Toggle password visibility">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+
+                        <div class="auth-options">
+                            <label class="remember-me">
+                                <input type="checkbox" id="rememberMe">
+                                <span>Remember me</span>
+                            </label>
+                            <a href="#" class="forgot-password">Forgot Password?</a>
+                        </div>
+
+                        <button type="submit" class="auth-submit-btn">
+                            <span>Login</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </form>
+
+                    <div class="auth-divider">
+                        <span>or continue with</span>
+                    </div>
+
+                    <div class="social-auth">
+                        <button class="social-btn google">
+                            <i class="fa-brands fa-google"></i>
+                        </button>
+                        <button class="social-btn facebook">
+                            <i class="fa-brands fa-facebook"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Signup Form -->
+                <div class="auth-form-container" id="signupForm">
+                    <h2>Create Account</h2>
+                    <p class="auth-subtitle">Sign up to get started</p>
+
+                    <form class="auth-form" id="signupFormElement" autocomplete="on">
+                        <div class="auth-input-group">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" name="name" id="signupName" placeholder="Full Name" autocomplete="name" required>
+                        </div>
+
+                        <div class="auth-input-group">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" name="email" id="signupEmail" placeholder="Email Address" autocomplete="email" required>
+                        </div>
+
+                        <div class="auth-input-group">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" name="password" id="signupPassword" placeholder="Password" autocomplete="new-password" required>
+                            <button type="button" class="password-toggle-btn" data-target="signupPassword" aria-label="Toggle password visibility">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+
+                        <label class="terms-checkbox">
+                            <input type="checkbox" required>
+                            <span>I agree to the <a href="#">Terms & Conditions</a></span>
+                        </label>
+
+                        <button type="submit" class="auth-submit-btn">
+                            <span>Sign Up</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </form>
+
+                    <div class="auth-divider">
+                        <span>or continue with</span>
+                    </div>
+
+                    <div class="social-auth">
+                        <button class="social-btn google">
+                            <i class="fa-brands fa-google"></i>
+                        </button>
+                        <button class="social-btn facebook">
+                            <i class="fa-brands fa-facebook"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- JavaScript Files -->
+        <!-- Performance: Defer all scripts for non-blocking page load -->
+
+        <!-- Firebase SDK (Firestore + Auth for Google Sign-In) -->
+        <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+        
+        <!-- Firebase configuration and data manager -->
+        <script src="js/firebase-config.js"></script>
+        <script src="js/firebase-data.js"></script>
+        
+        <!-- Initialize Firebase after SDK is loaded -->
+        <script>
+            // Ensure Firebase is initialized
+            if (typeof firebase !== 'undefined' && typeof initializeFirebase === 'function') {
+                initializeFirebase();
+                console.log('Firebase initialized from inline script');
+            }
+        </script>
+
+
+        <!-- Load shared data manager first -->
+        <script defer src="data/sharedData.js"></script>
+
+        <!-- Load data first -->
+        <script defer src="data/products.js"></script>
+
+        <!-- Load API configuration -->
+        <script defer src="api/config.js"></script>
+
+        <!-- Load modules -->
+        <script defer src="js/modules/custom-alerts.js?v=54"></script>
+        <script defer src="js/modules/email-service.js?v=54"></script>
+        <script defer src="js/modules/cart.js?v=54"></script>
+        <script defer src="js/modules/products.js?v=54"></script>
+        <script defer src="js/modules/navigation.js?v=54"></script>
+        <script defer src="js/modules/search.js?v=54"></script>
+        <script defer src="js/modules/auth.js?v=54"></script>
+        <script defer src="js/modules/ui.js?v=54"></script>
+
+        <!-- Load main application -->
+        <script defer src="js/app.js?v=54"></script>
+
+        <!-- Legacy support (can be removed once modular scripts are tested) -->
+        <!-- <script src="script.js"></script> -->
+</body>
+
+</html>
