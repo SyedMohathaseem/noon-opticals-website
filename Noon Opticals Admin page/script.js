@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.overflow = 'hidden';
         } else {
             // Fallback redirect if overlay not found
-            window.location.href = '/index.html';
+            window.location.href = '../Noon-Opticals-Website/index.html';
         }
     }
 })();
