@@ -11,12 +11,7 @@
   # No build functions needed
   functions = ""
 
-# Redirect rules
-[[redirects]]
-  # SPA fallback - redirect all routes to index.html
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# No redirects needed - multi-page static site
 
 # Headers for performance optimization
 [[headers]]
