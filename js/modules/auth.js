@@ -635,7 +635,7 @@ class AuthManager {
             sessionStorage.setItem('isAdmin', 'true');
             sessionStorage.setItem('adminUser', email);
             this.closeModal();
-            window.location.href = '../Noon Opticals Admin page/index.html';
+            window.location.href = '/Noon%20Opticals%20Admin%20page/index.html';
             return;
         }
 
