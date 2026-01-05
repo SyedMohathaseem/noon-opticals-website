@@ -186,7 +186,7 @@ body {
 
 .nav-item.active .nav-link {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    color: var(--white);
+    color: var(--gray-50);
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
 }
 
