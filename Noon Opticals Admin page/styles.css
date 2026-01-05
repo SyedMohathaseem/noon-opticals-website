@@ -980,12 +980,15 @@ body {
     border: none;
     width: 45px;
     height: 45px;
-    border-radius: 12px;
+    border-radius: 50%;
     cursor: pointer;
     position: relative;
     transition: all 0.3s ease;
     color: var(--gray-600);
     font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .header-btn:hover {
@@ -1023,7 +1026,7 @@ body {
 .profile-img {
     width: 38px;
     height: 38px;
-    border-radius: 10px;
+    border-radius: 50%;
     object-fit: contain;
     background: #000000;
     padding: 3px;
