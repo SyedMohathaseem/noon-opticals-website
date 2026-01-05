@@ -6820,7 +6820,7 @@ body.scroll-locked {
     justify-content: center;
     width: 32px;
     height: 32px;
-    background: linear-gradient(135deg, #94A3B8, #64748B);
+    /* background: linear-gradient(135deg, #94A3B8, #64748B); */
     color: #1a1a1a;
     font-size: 0.85rem;
     font-weight: 700;
