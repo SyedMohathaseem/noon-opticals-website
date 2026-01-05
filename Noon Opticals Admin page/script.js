@@ -2176,8 +2176,8 @@ document.getElementById('logoutBtn')?.addEventListener('click', async (e) => {
     sessionStorage.clear();
     localStorage.removeItem('adminToken'); // if used
 
-    // Force redirect to website root
-    window.location.replace('/');
+    // Force redirect to website root - use absolute URL
+    window.location.replace('https://noonopticalsweb.netlify.app/');
   }
 });
 
