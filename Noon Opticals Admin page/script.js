@@ -3827,6 +3827,12 @@ function loadAdminProfile() {
             sidebarAdminRole.textContent = adminEmail || '';
         }
         
+        // Update header profile display
+        const headerProfileName = document.querySelector('.header-profile-name');
+        if (headerProfileName) {
+            headerProfileName.textContent = displayName;
+        }
+        
         console.log('✅ Admin profile loaded:', adminEmail);
     }
 }
@@ -3919,6 +3925,12 @@ function setupProfileForm() {
             const sidebarAdminRole = document.querySelector('.admin-role');
             if (sidebarAdminRole) {
                 sidebarAdminRole.textContent = newEmail;
+            }
+            
+            // Update header profile display
+            const headerProfileName = document.querySelector('.header-profile-name');
+            if (headerProfileName) {
+                headerProfileName.textContent = firstName + (lastName ? ' ' + lastName : '');
             }
             
             // Disable fields and hide actions
