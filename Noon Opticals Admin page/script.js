@@ -2175,8 +2175,8 @@ document.getElementById('logoutBtn')?.addEventListener('click', async (e) => {
         // Clear admin session first
         sessionStorage.removeItem('isAdmin');
         sessionStorage.removeItem('adminUser');
-        // Redirect immediately to main website (not admin panel)
-        window.location.href = '/index.html';
+        // Redirect immediately to main website root
+        window.location.href = 'https://noonopticalsweb.netlify.app/';
     }
 });
 
