@@ -4254,6 +4254,124 @@ function loadSecurityQuestionStatus() {
     }
 }
 
+// ============== PROFILE DROPDOWN ==============
+function initProfileDropdown() {
+    const profileBtn = document.getElementById('headerProfileBtn');
+    const profileDropdown = document.getElementById('profileDropdown');
+    
+    if (profileBtn && profileDropdown) {
+        // Toggle on click
+        profileBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            profileDropdown.classList.toggle('active');
+            
+            // Toggle arrow icon
+            const arrow = profileBtn.querySelector('.fa-chevron-down');
+            if (arrow) {
+                arrow.style.transform = profileDropdown.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+                arrow.style.transition = 'transform 0.3s ease';
+            }
+        });
+        
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            if (!profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
+                closeProfileDropdown();
+            }
+        });
+    }
+
+    // Header Logout
+    const headerLogoutBtn = document.getElementById('headerLogoutBtn');
+    if (headerLogoutBtn) {
+        headerLogoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            handleLogout();
+        });
+    }
+
+    // Sidebar Logout
+    const sidebarLogoutBtn = document.getElementById('logoutBtn');
+    if (sidebarLogoutBtn) {
+        sidebarLogoutBtn.onclick = (e) => {
+            e.preventDefault();
+            handleLogout();
+        };
+    }
+}
+
+function closeProfileDropdown() {
+    const dropdown = document.getElementById('profileDropdown');
+    const profileBtn = document.getElementById('headerProfileBtn');
+    
+    if (dropdown) {
+        dropdown.classList.remove('active');
+        if (profileBtn) {
+            const arrow = profileBtn.querySelector('.fa-chevron-down');
+            if (arrow) arrow.style.transform = 'rotate(0deg)';
+        }
+    }
+}
+
+function handleLogout() {
+    if (typeof showConfirmDialog === 'function') {
+        showConfirmDialog(
+            'Confirm Logout',
+            'Are you sure you want to log out?',
+            () => performLogout()
+        );
+    } else {
+        if (confirm('Are you sure you want to log out?')) {
+            performLogout();
+        }
+    }
+}
+
+function performLogout() {
+    sessionStorage.removeItem('isAdmin');
+    if (typeof AdminAlert !== 'undefined') {
+        AdminAlert.success('Logging out...', 'Goodbye');
+        setTimeout(() => {
+            window.location.href = 'https://noonopticalsweb.netlify.app/';
+        }, 1000);
+    } else {
+        window.location.href = 'https://noonopticalsweb.netlify.app/';
+    }
+}
+
+// Add showConfirmDialog if missing
+if (typeof showConfirmDialog !== 'function') {
+    window.showConfirmDialog = function(title, message, onConfirm) {
+        const overlay = document.getElementById('confirmOverlay');
+        if (!overlay) {
+            if (confirm(message)) onConfirm();
+            return;
+        }
+        
+        document.getElementById('confirmTitle').textContent = title;
+        document.getElementById('confirmMessage').innerHTML = message;
+        
+        const cancelBtn = document.getElementById('confirmCancelBtn');
+        const okBtn = document.getElementById('confirmOkBtn');
+        
+        // Clone to clear listeners
+        const newCancel = cancelBtn.cloneNode(true);
+        const newOk = okBtn.cloneNode(true);
+        cancelBtn.parentNode.replaceChild(newCancel, cancelBtn);
+        okBtn.parentNode.replaceChild(newOk, okBtn);
+        
+        newCancel.addEventListener('click', () => overlay.classList.remove('active'));
+        
+        newOk.addEventListener('click', () => {
+            overlay.classList.remove('active');
+            onConfirm();
+        });
+        
+        overlay.classList.add('active');
+    };
+}
+
 // ============== INIT ==============
 async function initAdminPanel() {
     // Sync data from Firebase first
@@ -4282,6 +4400,7 @@ async function initAdminPanel() {
     setupProfileForm(); // Setup profile form editing
     setupSecurityForms(); // Setup security question and forgot password
     setupSearch(); // Initialize search functionality
+    initProfileDropdown(); // Initialize profile dropdown
     renderNotifications(); // Initialize notifications
     updateAllBadges(); // Update all section badges (new items count)
     updateDashboardStats(); // Update dashboard statistics

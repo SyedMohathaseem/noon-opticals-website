@@ -170,10 +170,22 @@
                     </div>
                 </div>
                 <!-- <button class="header-btn" id="messageBtn"><i class="fas fa-envelope"></i></button> -->
-                <div class="header-profile" onclick="navigateTo('profile')">
-                    <img src="noon.png" alt="Profile" class="profile-img" id="headerProfileImg">
-                    <span>Admin</span>
-                    <i class="fas fa-chevron-down"></i>
+                <div class="profile-wrapper">
+                    <div class="header-profile" id="headerProfileBtn">
+                        <img src="noon.png" alt="Profile" class="profile-img" id="headerProfileImg">
+                        <span>Admin</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <a href="#" class="profile-dropdown-item" onclick="navigateTo('profile'); closeProfileDropdown();">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Profile</span>
+                        </a>
+                        <a href="#" class="profile-dropdown-item logout" id="headerLogoutBtn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </header>
