@@ -465,13 +465,20 @@ body.scroll-locked {
         padding: 22px 160px;
     }
 
+    /* 4K Hero - Reduce excessive vertical spacing */
+    .hero {
+        min-height: auto;
+        padding-top: 160px;
+        padding-bottom: 80px;
+    }
+
     .hero-container {
         max-width: 1800px;
         padding: 0 160px;
     }
 
     .hero-content {
-        gap: 120px;
+        gap: 100px;
     }
 
     .image-wrapper {
@@ -1252,10 +1259,11 @@ body.scroll-locked {
 /* --- Hero Section --- */
 .hero {
     min-height: 100vh;
-    padding-top: 100px;
+    padding-top: 140px;
+    padding-bottom: 60px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     position: relative;
     overflow: hidden;

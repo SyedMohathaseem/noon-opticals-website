@@ -5566,6 +5566,15 @@ select.select-sm,
 
 /* Mobile Landscape / Large Mobile (576px - 767px) */
 @media (max-width: 767px) {
+
+    /* Prevent horizontal scroll on mobile */
+    html,
+    body {
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100%;
+    }
+
     :root {
         --sidebar-width: 0px;
         --header-height: 60px;
