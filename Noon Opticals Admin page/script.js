@@ -2160,25 +2160,27 @@ document.getElementById('productSearch')?.addEventListener('input', (e) => {
 
 // ============== LOGOUT ==============
 document.getElementById('logoutBtn')?.addEventListener('click', async (e) => {
-    e.preventDefault();
-    
-    const confirmed = await showConfirm({
-        title: 'Logout',
-        message: 'Are you sure you want to logout from the admin panel?',
-        type: 'info',
-        confirmClass: 'confirm',
-        confirmIcon: 'fa-sign-out-alt',
-        confirmText: 'Logout'
-    });
-    
-    if (confirmed) {
-        // Clear admin session first
-        sessionStorage.removeItem('isAdmin');
-        sessionStorage.removeItem('adminUser');
-        // Redirect immediately to main website root
-        window.location.href = '/';
-    }
+  e.preventDefault();
+
+  const confirmed = await showConfirm({
+    title: 'Logout',
+    message: 'Are you sure you want to logout from the admin panel?',
+    type: 'info',
+    confirmClass: 'confirm',
+    confirmIcon: 'fa-sign-out-alt',
+    confirmText: 'Logout'
+  });
+
+  if (confirmed) {
+    // Clear admin session
+    sessionStorage.clear();
+    localStorage.removeItem('adminToken'); // if used
+
+    // Force redirect to website root
+    window.location.replace('/');
+  }
 });
+
 
 // ============== SEARCH CLEAR BUTTON ==============
 const globalSearch = document.getElementById('globalSearch');
