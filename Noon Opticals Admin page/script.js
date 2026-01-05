@@ -2176,7 +2176,7 @@ document.getElementById('logoutBtn')?.addEventListener('click', async (e) => {
         sessionStorage.removeItem('isAdmin');
         sessionStorage.removeItem('adminUser');
         // Redirect immediately to main website root
-        window.location.href = 'https://noonopticalsweb.netlify.app/';
+        window.location.href = '/';
     }
 });
 
