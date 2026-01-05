@@ -6805,3 +6805,19 @@ body.scroll-locked {
         contain: content;
     }
 }
+
+/* User Initials Style in Login Button */
+.user-initials {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #94A3B8, #64748B);
+    color: #1a1a1a;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 50%;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}

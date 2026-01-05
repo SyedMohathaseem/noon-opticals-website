@@ -62,12 +62,17 @@ class AuthManager {
         const loginBtn = document.getElementById('loginBtn');
         
         if (user) {
-            // User is logged in - update button to show user info
+            // User is logged in - update button to show user initials
             if (loginBtn) {
                 const displayName = user.displayName || user.email.split('@')[0];
+                // Get initials from name (e.g., "Mohammed Imran" -> "MI")
+                const initials = displayName
+                    .split(' ')
+                    .map(word => word.charAt(0).toUpperCase())
+                    .slice(0, 2)  // Max 2 initials
+                    .join('');
                 loginBtn.innerHTML = `
-                    <i class="fa-solid fa-user"></i>
-                    <span>${displayName}</span>
+                    <span class="user-initials">${initials}</span>
                 `;
                 loginBtn.onclick = () => this.showUserMenu();
             }
