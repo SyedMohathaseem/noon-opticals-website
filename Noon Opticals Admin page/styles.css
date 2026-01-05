@@ -1033,6 +1033,24 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.header-profile-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-profile-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--white);
+    line-height: 1.2;
+}
+
+.header-profile-role {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.2;
+}
+
 /* Profile Dropdown */
 .profile-wrapper {
     position: relative;
