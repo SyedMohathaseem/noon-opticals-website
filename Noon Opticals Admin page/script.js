@@ -2172,14 +2172,11 @@ document.getElementById('logoutBtn')?.addEventListener('click', async (e) => {
     });
     
     if (confirmed) {
-        showToast('Logging out...', 'warning');
-        // Clear admin session
+        // Clear admin session first
         sessionStorage.removeItem('isAdmin');
         sessionStorage.removeItem('adminUser');
-        // Redirect to main website after short delay
-        setTimeout(() => {
-            window.location.href = '\index.html';
-        }, 1500);
+        // Redirect immediately to main website (not admin panel)
+        window.location.href = '/index.html';
     }
 });
 
