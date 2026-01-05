@@ -468,8 +468,8 @@ body.scroll-locked {
     /* 4K Hero - Reduce excessive vertical spacing */
     .hero {
         min-height: auto;
-        padding-top: 160px;
-        padding-bottom: 80px;
+        padding-top: 140px;
+        padding-bottom: 40px;
     }
 
     .hero-container {
@@ -478,7 +478,14 @@ body.scroll-locked {
     }
 
     .hero-content {
-        gap: 100px;
+        gap: 80px;
+    }
+
+    /* Scroll indicator - relative positioning on 4K */
+    .scroll-indicator {
+        position: relative;
+        bottom: auto;
+        margin-top: 40px;
     }
 
     .image-wrapper {
