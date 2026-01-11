@@ -514,9 +514,41 @@
 
     .cart-sidebar {
         width: 100% !important;
+        height: 100dvh !important;
+        height: 100vh !important;
+        /* Fallback */
+        max-height: -webkit-fill-available !important;
         background: linear-gradient(135deg, rgba(20, 25, 35, 0.95), rgba(15, 20, 30, 0.98)) !important;
         backdrop-filter: blur(30px) !important;
         -webkit-backdrop-filter: blur(30px) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        padding-bottom: env(safe-area-inset-bottom, 15px) !important;
+    }
+
+    .cart-items {
+        flex: 1 !important;
+        min-height: 0 !important;
+        overflow-y: auto !important;
+    }
+
+    .cart-footer {
+        flex-shrink: 0 !important;
+        padding: 15px 0 !important;
+        padding-bottom: calc(env(safe-area-inset-bottom, 10px) + 15px) !important;
+        border-top: 1px solid rgba(148, 163, 184, 0.2) !important;
+        margin-top: auto !important;
+    }
+
+    .checkout-btn {
+        padding: 14px 16px !important;
+        font-size: 0.9rem !important;
+        border-radius: 10px !important;
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
     }
 
     /* Floating Elements Mobile */
