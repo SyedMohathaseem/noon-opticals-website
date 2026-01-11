@@ -6450,18 +6450,39 @@ body.scroll-locked {
 }
 
 .promo-highlight {
-    background: linear-gradient(135deg, #CBD5E1 0%, #E2E8F0 50%, #94A3B8 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #E2E8F0 50%, #CBD5E1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: 900;
     font-size: 2.5rem;
     display: inline-block;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+    animation: promo-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes promo-glow {
+    0% {
+        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.3));
+    }
+
+    100% {
+        filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.6));
+    }
+}
+
+.promo-highlight-secondary {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 .promo-subtitle {
     font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.85);
     margin: 0;
     line-height: 1.7;
     font-weight: 500;
