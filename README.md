@@ -338,7 +338,7 @@ This project is proprietary and confidential.
 
 ## 👤 Developer
 
-**Developed by Azhan**
+**Developed by Mohathaseem & Azhan**
 
 - GitHub: [Your GitHub Profile]
 - Email: [Your Email]
